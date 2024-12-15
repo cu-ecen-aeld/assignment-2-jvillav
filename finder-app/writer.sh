@@ -20,7 +20,8 @@ echo "Output directory: $dir_name"
 
 if [ ! -d $dir_name ]; then
 	echo "Creating directory"
-	retval=$(mkdir "$dir_name" 2>&1)
+	# Ensure that all the file structure is created
+	retval=$(mkdir -p "$dir_name" 2>&1)
 	echo $retval
 else
 	echo "Directory found"
