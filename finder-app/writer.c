@@ -14,6 +14,7 @@ int main(int argc, char *argv[]){
 		return 1; // Returns 1 per specification, could return EINVAL (22 - Invalid argument)
 	}
 
+	// Give name to input arguments 
 	const char *writefile = argv[1];
 	const char *writestr = argv[2];
 
@@ -23,9 +24,10 @@ int main(int argc, char *argv[]){
 	file = fopen(writefile, "w");
 
 	if (file == NULL){
-		syslog(LOG_ERR, "Error while opening %s", writefile);
-		closelog();
-		return 1;
+		syslog(LOG_ERR, "Error while opening %s", writefile); // Log the error
+		closelog();		// cleanup and exit
+		fclose(file); 		//
+		return 1; // Returns 1 per specification, could return the errno of the operation.
 	}
 
 	fprintf(file, "%s", writestr);
